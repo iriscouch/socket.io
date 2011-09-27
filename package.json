@@ -17,6 +17,8 @@
     }
   , "dependencies": {
         "socket.io-client": "0.8.4"
+      , "request": "1.9.6"
+      , "follow": "0.2.0"
       , "policyfile": "0.0.4"
       , "redis": "0.6.6"
     }
