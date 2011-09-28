@@ -20,7 +20,7 @@ This is the more modern, more robust, 2.1-tier Couch app architecture:
     iOS app <--> CouchDB <--> NodeJS realtime event handling
     Mac app <-->         <--> Java search engine, ElasticSearch
 
-CouchDB is, basically, inconvenient for most things but very good at a few things:
+CouchDB is a *domain-specific database*. It is inconvenient for most things but very good at a few things:
 
 1. Being up all the time
 1. Being simple (HTTP, JSON, Javascript)
@@ -31,3 +31,15 @@ Me, I want my application's linchpin to be simple, highly-available, and event-o
 In other words, a 2.1-tier Couch app is a [SLEEP][syncable]y architecture (Syncable Lightweight Event-Emitting Persistence).
 
 [syncable]: http://syncable.org/
+
+## Known Issues
+
+Two more dependencies: `request` and `follow`.
+
+socket.io is still listening on a port even though it needn't if the only transport is couchdb.
+
+Not hooking into the `authorization` callback.
+
+The `/1` couch attachment to simulate a handshake is a bit crazy. It also duplicates some manager code to produce the handshake string.
+
+I had to modify `Socket.prototype.handshake` and add special handling just for the couchdb transport. That seems wrong. In general, it seems `transports` would either be *only* couchdb, or else never include CouchDB.
